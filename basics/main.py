@@ -42,7 +42,7 @@ def ChangeAllWordsToUppercase():
     print(allWords)
 
 
-def CreatePairOfLowerAndUppercase():
+def CreatePairOfLowerAndUppercase(): # Example of key/value pair transforms, there are many of them.
     inputRDD = getInputRdd()
     allWordsRdd=inputRDD.map(lambda word: # Transformations
                           (word,word.upper())
@@ -56,6 +56,18 @@ def CreatePairOfLowerAndUppercase():
     # values only - upper case
     print(allWordsRdd.values().collect())
 
+def groupByKeys(): # Example of key/value pair transforms, there are many of them.
+    someRdd=sc.parallelize([1,2,3,4,5,6,2,3,4])
+    squareMapped=someRdd.map(lambda x: (x,x*x))
+    grouped=squareMapped.groupByKey().collect()
+    for group in grouped:
+        key = group[0]
+        values = group[1].data
+        print("For key {} the values are".format(key))
+        for value in values:
+            print("{} ".format(value))
+
+
 
 if __name__ == '__main__':
     filterWordsWithI()
@@ -64,4 +76,5 @@ if __name__ == '__main__':
     getFirst2Words()
     ChangeAllWordsToUppercase()
     CreatePairOfLowerAndUppercase()
+    groupByKeys()
 
